@@ -1,7 +1,7 @@
 package tech.angelov.util
 
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.{ChromeDriver, ChromeOptions}
+import org.openqa.selenium.chrome.{ChromeDriver, ChromeDriverService, ChromeOptions}
 import org.openqa.selenium.remote.DesiredCapabilities
 
 object Driver {

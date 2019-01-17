@@ -1,13 +1,14 @@
 package tech.angelov.pages
 
-import org.openqa.selenium.{By, WebDriver}
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
+import org.openqa.selenium.{By, WebDriver}
+import org.scalatest.Matchers
 import org.scalatest.selenium.WebBrowser
 import tech.angelov.util.Driver
 
-trait WebPage extends Driver
+trait WebPage extends Page
 
-sealed trait Driver extends WebBrowser {
+sealed trait Driver extends WebBrowser with Matchers {
 
   /** Instantiates the driver and the implicit wait **/
   implicit val driver: WebDriver = Driver.getInstance()
@@ -40,5 +41,34 @@ sealed trait Driver extends WebBrowser {
   protected def clickByXpath(xpath: String): Unit = clickBy(By.xpath(xpath))
 
   protected def clickByLinkText(link: String): Unit = clickBy(By.linkText(link))
+
+  /** Checking if something is present on a page **/
+  def checkIfShown(args: String*): Unit = {
+    val page = pageSource
+    args.foreach(x ⇒ page should include(x))
+  }
+
+  def checkIfRegexShown(args: String*): Unit = {
+    val page = pageSource
+    args.foreach(x ⇒ page should include regex x)
+  }
+
+  def checkIfNotShown(args: String*): Unit = {
+    val page = pageSource
+    args.foreach(x ⇒ page shouldNot include(x))
+  }
+
+  def checkIfRegexNotShown(args: String*): Unit = {
+    val page = pageSource
+    args.foreach(x ⇒ page shouldNot include regex x)
+  }
+}
+
+sealed trait Page extends Driver {
+
+  val url:     Option[String] = None
+  val baseUrl: Option[String] = None
+  val header:  Option[String] = None
+  val title:   Option[String] = None
 
 }
