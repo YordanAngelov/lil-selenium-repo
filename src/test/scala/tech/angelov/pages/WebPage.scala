@@ -26,10 +26,19 @@ sealed trait Driver extends WebBrowser {
 
   protected def inputCss(css: String, value: String): Unit = input(By.cssSelector(css), value)
 
-  /** Generic click method **/
-  def clickBy(by: By): Unit = {
+  /** Generic click methods **/
+  private def clickBy(by: By): Unit = {
     w.until(ExpectedConditions.presenceOfElementLocated(by))
     driver.findElement(by).click()
   }
+
+  /** Can be expanded to include more if necessary **/
+  protected def clickById(id: String): Unit = clickBy(By.id(id))
+
+  protected def clickByCss(css: String): Unit = clickBy(By.cssSelector(css))
+
+  protected def clickByXpath(xpath: String): Unit = clickBy(By.xpath(xpath))
+
+  protected def clickByLinkText(link: String): Unit = clickBy(By.linkText(link))
 
 }
