@@ -1,5 +1,7 @@
 import sbt.ExclusionRule
 
+sbtVersion := "0.13.15"
+
 name := "lil-selenium-repo"
 
 version := "0.1"
