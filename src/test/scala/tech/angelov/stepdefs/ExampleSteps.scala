@@ -8,6 +8,7 @@ class ExampleSteps extends Steps {
 
   When("""^I search for cats$""") {
     inputCss("div > input[aria-label='Search']", "cats")
+    clickByCss("input[value='Google Search']")
   }
 
   Then("""^I will see results showing websites of cats$""") {

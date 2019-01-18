@@ -4,7 +4,8 @@ name := "lil-selenium-repo"
 
 version := "0.1"
 
-scalaVersion := "2.12.8"
+// This seems to be the latest version compatible with Cucumber (as of 18.01.2019)
+scalaVersion := "2.11.11"
 
 val CucumberVersion = "1.2.5"
 
