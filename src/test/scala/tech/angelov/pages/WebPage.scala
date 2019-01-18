@@ -66,9 +66,24 @@ sealed trait Driver extends WebBrowser with Matchers {
 
 sealed trait Page extends Driver {
 
-  val url:     Option[String] = None
-  val baseUrl: Option[String] = None
-  val header:  Option[String] = None
-  val title:   Option[String] = None
+  val relativeUrl: Option[String] = None
+  val baseUrl:     Option[String] = None
+
+  /* The header is assumed to be the H1 of the page - change headerBy if that isn't the case */
+  val header:      Option[String] = None
+  val headerBy:    By             = By.tagName("h1")
+  val title:       Option[String] = None
+
+  /** Checking which page the tests are on **/
+  /* The quickest way to check which page you are on */
+  def on(page: WebPage): Unit = w.until(ExpectedConditions.urlContains(page.relativeUrl.get))
+
+  /* The more robust, but also slower, way of checking the page */
+  def definitelyOn(page: WebPage): Unit = {
+    on(page)
+    assert(driver.getTitle == page.title.get)
+    w.until(ExpectedConditions.presenceOfElementLocated(headerBy))
+    assert(driver.findElement(headerBy).getText == page.header.get)
+  }
 
 }
