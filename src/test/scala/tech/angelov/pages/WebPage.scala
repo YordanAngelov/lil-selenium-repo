@@ -43,25 +43,34 @@ sealed trait Driver extends WebBrowser with Matchers {
   protected def clickByLinkText(link: String): Unit = clickBy(By.linkText(link))
 
   /** Checking if something is present on a page **/
-  def checkIfShown(args: String*): Unit = {
+  protected def checkIfShown(args: String*): Unit = {
     val page = pageSource
     args.foreach(x ⇒ page should include(x))
   }
 
-  def checkIfRegexShown(args: String*): Unit = {
+  protected def checkIfRegexShown(args: String*): Unit = {
     val page = pageSource
     args.foreach(x ⇒ page should include regex x)
   }
 
-  def checkIfNotShown(args: String*): Unit = {
+  protected def checkIfNotShown(args: String*): Unit = {
     val page = pageSource
     args.foreach(x ⇒ page shouldNot include(x))
   }
 
-  def checkIfRegexNotShown(args: String*): Unit = {
+  protected  def checkIfRegexNotShown(args: String*): Unit = {
     val page = pageSource
     args.foreach(x ⇒ page shouldNot include regex x)
   }
+
+  /** General retrieve text methods **/
+  private def getText(by: By): String = driver.findElement(by).getText
+
+  protected  def getTextById(id: String): String = getText(By.id(id))
+
+  protected  def getTextByCss(css: String): String = getText(By.cssSelector(css))
+
+  protected  def getTextByXpath(xpath: String): String = getText(By.xpath(xpath))
 }
 
 sealed trait Page extends Driver {
