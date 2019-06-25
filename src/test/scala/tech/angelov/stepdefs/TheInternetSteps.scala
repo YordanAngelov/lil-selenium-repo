@@ -16,8 +16,16 @@ class TheInternetSteps extends Steps {
     TheInternet.uploadFile()
   }
 
-  Then("""^I will see that the file was uploaded$""") {
+  Then("""^I will see that the file has been uploaded$""") {
     TheInternet.checkFileUpload()
+  }
+
+  When("""^I download a file$""") {
+    TheInternet.downloadFile()
+  }
+
+  Then("""^I will see that the file has been downloaded$""") {
+    TheInternet.checkFileDownload()
   }
 
 }
