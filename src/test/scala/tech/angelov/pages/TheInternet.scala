@@ -34,11 +34,11 @@ object TheInternet extends WebPage {
     w.until(ExpectedConditions.elementToBeClickable(By.linkText(downloadFileName))).click()
 
   def checkFileDownload(): Unit = {
-    //    assert(Files.exists(Paths.get(downloadFolder + "/" + downloadFileName)), "File is not present in expected location") // Either method works
     lazy val file = new File(downloadFolder + "/" + downloadFileName)
 
     waitForFile() // There's some delay between downloading it and being able to access it
 
+    //    assert(Files.exists(Paths.get(downloadFolder + "/" + downloadFileName)), "File is not present in expected location") // Either method works
     assert(file.exists, "File is not present in expected location.")
     file.delete() // Clean up after the function
 
