@@ -28,4 +28,12 @@ class TheInternetSteps extends Steps {
     TheInternet.checkFileDownload()
   }
 
+  When("""^I select an option from the dropdown$""") {
+    TheInternet.selectDropdown()
+  }
+
+  Then("""^that option will be selected$""") {
+    TheInternet.checkDropdown()
+  }
+
 }

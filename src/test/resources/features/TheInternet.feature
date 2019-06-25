@@ -16,3 +16,9 @@ Feature: An example feature
     When I go to the File Download section on the Internet
     And I download a file
     Then I will see that the file has been downloaded
+
+  Scenario: Selecting an option from a dropdown on the Internet
+    Given I go on the Internet
+    When I go to the Dropdown section on the Internet
+    And I select an option from the dropdown
+    Then that option will be selected
