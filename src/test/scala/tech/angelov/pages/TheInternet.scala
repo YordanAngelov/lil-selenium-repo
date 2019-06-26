@@ -82,4 +82,39 @@ object TheInternet extends WebPage {
     driver.switchTo().window(tabs.head) // Switches back to first tab - if you don't to it, it'll fail the subsequent tests
   }
 
+  /** Using checkboxes */
+  // If they are vals, you get StaleElementReferenceException as it links them to the specific page in time.
+  // It seems that the page has an unique ID or sth as the driver thinks it is a different page if you come back to id, e.g.
+  // you get two different instances in your code of the same page
+  def box1: Checkbox = checkbox(cssSelector("form > input:nth-of-type(1)")) // This one is clear by default
+  def box2: Checkbox = checkbox(cssSelector("form > input:nth-of-type(2)")) // This one is ticked by default
+  def getBox(i: Int): Checkbox = i match {
+    case 1 ⇒ box1
+    case 2 ⇒ box2
+  }
+
+  def tickCheckbox(i: Int): Unit =
+    getBox(i).select() // TODO: Check if it selects it even when selected
+
+  def untickCheckbox(i: Int): Unit =
+    getBox(i).clear() // TODO: Check if attempts to clear if not selected
+
+  def tickCheckboxIfNotTicked(i: Int): Unit = {
+    val box = getBox(i)
+    if (!box.isSelected) box.select()
+    else println("The checkbox was already ticked.")
+  }
+
+  def untickCheckboxIfTicked(i: Int): Unit = {
+    val box = getBox(i)
+    if (box.isSelected) box.clear()
+    else println("The checkbox was already unticked.")
+  }
+
+  def checkCheckboxIsTicked(box: Int): Unit =
+    getBox(box).isSelected
+
+  def checkCheckboxIsUnticked(box: Int): Unit =
+    !getBox(box).isSelected
+
 }
