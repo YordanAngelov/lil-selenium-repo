@@ -36,4 +36,12 @@ class TheInternetSteps extends Steps {
     TheInternet.checkDropdown()
   }
 
+  When("""^I open a new window$""") {
+    TheInternet.openNewWindow()
+  }
+
+  Then("""^I will be on the new window$""") {
+    TheInternet.switchToNewWindow()
+  }
+
 }
