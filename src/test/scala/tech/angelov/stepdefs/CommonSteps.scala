@@ -1,9 +1,11 @@
 package tech.angelov.stepdefs
 
 import java.io.File
+import scala.collection.JavaConverters._
 
 import cucumber.api.Scenario
 import org.apache.commons.io.FileUtils
+import org.openqa.selenium.logging.LogType
 import org.openqa.selenium.{OutputType, TakesScreenshot, WebDriver}
 
 class CommonSteps extends Steps {
@@ -34,6 +36,13 @@ class CommonSteps extends Steps {
         case _ ⇒ throw new Exception("Driver cannot take screenshot.")
       }
     }
+
+    /** You can print out the logs you have accumulated throughout the test here */
+//    val logs = driver.manage().logs().get(LogType.BROWSER).asScala.toList
+//    println("\n******************************* START OF BROWSER LOGS *******************************")
+//    logs.foreach(println)
+//    println("*******************************  END OF BROWSER LOGS  *******************************")
+
     driver.manage().deleteAllCookies()
   }
 
