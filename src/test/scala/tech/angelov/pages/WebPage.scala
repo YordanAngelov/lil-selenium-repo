@@ -12,7 +12,7 @@ sealed trait Driver extends WebBrowser with Matchers {
 
   /** Instantiates the driver and the implicit wait **/
   implicit val driver: WebDriver = Driver.getInstance()
-  implicit val w: WebDriverWait = new WebDriverWait(driver, 2)
+  implicit val w: WebDriverWait  = new WebDriverWait(driver, 2)
 
   /** Input methods **/
   private def input(by: By, value: String): Unit = {
@@ -58,7 +58,7 @@ sealed trait Driver extends WebBrowser with Matchers {
     args.foreach(x ⇒ page shouldNot include(x))
   }
 
-  protected  def checkIfRegexNotShown(args: String*): Unit = {
+  protected def checkIfRegexNotShown(args: String*): Unit = {
     val page = pageSource
     args.foreach(x ⇒ page shouldNot include regex x)
   }
@@ -75,13 +75,13 @@ sealed trait Driver extends WebBrowser with Matchers {
 
 sealed trait Page extends Driver {
 
-  val relativeUrl: Option[String] = None
-  val baseUrl:     Option[String] = None
+  lazy val relativeUrl: Option[String] = None
+  lazy val baseUrl:     Option[String] = None
 
   /* The header is assumed to be the H1 of the page - change headerBy if that isn't the case */
-  val header:      Option[String] = None
-  val headerBy:    By             = By.tagName("h1")
-  val title:       Option[String] = None
+  lazy val header:      Option[String] = None
+  lazy val headerBy:    By             = By.tagName("h1")
+  lazy val title:       Option[String] = None
 
   /** Checking which page the tests are on **/
   /* The quickest way to check which page you are on */
